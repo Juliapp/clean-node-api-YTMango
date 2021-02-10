@@ -1,0 +1,20 @@
+{
+  "name": "clean-node-api-YTMongo",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Juliapp/clean-node-api-YTMongo.git"
+  },
+  "author": "Juli <aragaopintojuli@gmail.com>",
+  "license": "MIT",
+  "description": "Curso gratuito de API em Node com Clean Architecture e TDD",
+  "bugs": {
+    "url": "https://github.com/Juliapp/clean-node-api-YTMongo/issues"
+  },
+  "homepage": "https://github.com/Juliapp/clean-node-api-YTMongo#readme",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": []
+}
