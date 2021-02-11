@@ -1,4 +1,4 @@
-# What I have learned from this project
+# What have I been learned from this project
 
 ## Project Setup
 ### standard
@@ -11,3 +11,6 @@ Essa dupla impede que o código vá para o commit se tiver código "mal feito".
 ### Jest 
 Pacote de testes. 
 * Você precisa habilitar o Jest globalmente.
+
+## Login Router 1/4
+Começo dos testes personalizados. A aplicação do CA pode ser um pouco grande, porém o código fica bem coêso.
