@@ -11,11 +11,11 @@ const makeSut = () => {
       return this.accessToken
     }
   }
-  const authUseCase = new AuthUseCaseSpy()
-  authUseCase.accessToken = 'valid_token'
-  const sut = new LoginRouter(authUseCase)
+  const authUseCaseSpy = new AuthUseCaseSpy()
+  authUseCaseSpy.accessToken = 'valid_token'
+  const sut = new LoginRouter(authUseCaseSpy)
   return {
-    sut, authUseCase
+    sut, authUseCaseSpy
   }
 }
 describe('Login Router', () => {
@@ -59,7 +59,7 @@ describe('Login Router', () => {
   })
 
   test('Should call AuthUseCase with correct params', () => {
-    const { sut, authUseCase } = makeSut() // sut = sistem under test
+    const { sut, authUseCaseSpy } = makeSut() // sut = sistem under test
     // sut = sistem under test
     const httpRequest = {
       body: {
@@ -68,16 +68,16 @@ describe('Login Router', () => {
       }
     }
     sut.route(httpRequest)
-    expect(authUseCase.email).toBe(httpRequest.body.email)
-    expect(authUseCase.password).toBe(httpRequest.body.password)
+    expect(authUseCaseSpy.email).toBe(httpRequest.body.email)
+    expect(authUseCaseSpy.password).toBe(httpRequest.body.password)
   })
   /* 401 é usado quando o sustema não encontra o usuário
       403 o sistema reconhece o usuário mas ele vai fazer uma ação inválida
   */
   test('Should return 401 when invalid credentials are provided', () => {
-    const { sut, authUseCase } = makeSut() // sut = sistem under test
+    const { sut, authUseCaseSpy } = makeSut() // sut = sistem under test
     // sut = sistem under test
-    authUseCase.accessToken = null
+    authUseCaseSpy.accessToken = null
     const httpRequest = {
       body: {
         email: 'invalid_email@email.com',
@@ -104,7 +104,7 @@ describe('Login Router', () => {
   })
 
   test('Should return 200 when valid contains are provided', () => {
-    const { sut } = makeSut()// sut = sistem under test
+    const { sut, authUseCaseSpy } = makeSut()// sut = sistem under test
     const httpRequest = {
       body: {
         email: 'valid_email@email.com',
@@ -113,5 +113,6 @@ describe('Login Router', () => {
     }
     const httpResponse = sut.route(httpRequest)
     expect(httpResponse.statusCode).toBe(200)
+    expect(httpResponse.body.accessToken).toEqual(authUseCaseSpy.accessToken)
   })
 })
