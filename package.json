@@ -13,6 +13,9 @@
     "test": "jest",
     "postinstall": "husky install"
   },
+  "standard": {
+    "env": ["jest"]
+  },
   "lint-staged": {
     "*.js": [
       "standard --fix",
