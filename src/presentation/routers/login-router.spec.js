@@ -8,9 +8,11 @@ const makeSut = () => {
     auth (email, password) {
       this.email = email
       this.password = password
+      return this.accessToken
     }
   }
   const authUseCase = new AuthUseCaseSpy()
+  authUseCase.accessToken = 'valid_token'
   const sut = new LoginRouter(authUseCase)
   return {
     sut, authUseCase
@@ -73,8 +75,9 @@ describe('Login Router', () => {
       403 o sistema reconhece o usuário mas ele vai fazer uma ação inválida
   */
   test('Should return 401 when invalid credentials are provided', () => {
-    const { sut } = makeSut() // sut = sistem under test
+    const { sut, authUseCase } = makeSut() // sut = sistem under test
     // sut = sistem under test
+    authUseCase.accessToken = null
     const httpRequest = {
       body: {
         email: 'invalid_email@email.com',
@@ -98,5 +101,17 @@ describe('Login Router', () => {
     const httpResponse = sut.route()
     expect(httpResponse.statusCode).toBe(500)
     // expect(httpResponse.body).toEqual(new UnauthorizedError())
+  })
+
+  test('Should return 200 when valid contains are provided', () => {
+    const { sut } = makeSut()// sut = sistem under test
+    const httpRequest = {
+      body: {
+        email: 'valid_email@email.com',
+        password: 'valid_password'
+      }
+    }
+    const httpResponse = sut.route(httpRequest)
+    expect(httpResponse.statusCode).toBe(200)
   })
 })
