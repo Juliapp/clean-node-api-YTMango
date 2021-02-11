@@ -11,7 +11,7 @@
   "description": "Curso gratuito de API em Node com Clean Architecture e TDD",
   "scripts": {
     "test": "jest --watchAll",
-    "test:staged": "jest",
+    "test:staged": "jest --passWithNoTests",
     "postinstall": "husky install"
   },
   "standard": {
