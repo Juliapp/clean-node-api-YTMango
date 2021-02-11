@@ -1,9 +1,18 @@
 const LoginRouter = require('./login-router')
 const MissingParamError = require('../helpers/missing-param-error')
-const UnauthorizedError = require('../helpers/unautorized-error copy')
-
+const UnauthorizedError = require('../helpers/unautorized-error')
+const ServerError = require('../helpers/server-error')
 // Design pattern Factory
 const makeSut = () => {
+  const authUseCaseSpy = makeAuthUseCaseWith()
+  authUseCaseSpy.accessToken = 'valid_token'
+  const sut = new LoginRouter(authUseCaseSpy)
+  return {
+    sut, authUseCaseSpy
+  }
+}
+
+const makeAuthUseCaseWith = () => {
   class AuthUseCaseSpy {
     auth (email, password) {
       this.email = email
@@ -11,12 +20,17 @@ const makeSut = () => {
       return this.accessToken
     }
   }
-  const authUseCaseSpy = new AuthUseCaseSpy()
-  authUseCaseSpy.accessToken = 'valid_token'
-  const sut = new LoginRouter(authUseCaseSpy)
-  return {
-    sut, authUseCaseSpy
+  return new AuthUseCaseSpy()
+}
+
+const makeAuthUseCaseWithError = () => {
+  class AuthUseCaseSpy {
+    auth (email, password) {
+      throw new Error()
+    }
   }
+
+  return new AuthUseCaseSpy()
 }
 describe('Login Router', () => {
   test('Should return 400 if no email is provided', () => {
@@ -93,11 +107,21 @@ describe('Login Router', () => {
     const sut = new LoginRouter()// sut = sistem under test
     const httpResponse = sut.route()
     expect(httpResponse.statusCode).toBe(500)
+    expect(httpResponse.body).toEqual(new ServerError())
     // expect(httpResponse.body).toEqual(new UnauthorizedError())
   })
 
   test('Should return 500 if no AuthUseCase has no auth method', () => {
     const sut = new LoginRouter({})// sut = sistem under test
+    const httpResponse = sut.route()
+    expect(httpResponse.statusCode).toBe(500)
+    // expect(httpResponse.body).toEqual(new UnauthorizedError())
+  })
+
+  test('Should return 500 if no AuthUseCase has no auth method', () => {
+    const authUseCaseSpy = makeAuthUseCaseWithError()
+    const sut = new LoginRouter(authUseCaseSpy)
+
     const httpResponse = sut.route()
     expect(httpResponse.statusCode).toBe(500)
     // expect(httpResponse.body).toEqual(new UnauthorizedError())
