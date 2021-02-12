@@ -10,10 +10,10 @@
   "license": "MIT",
   "description": "Curso gratuito de API em Node com Clean Architecture e TDD",
   "scripts": {
-    "test": "jest --watch --silent --colors --noStackTrace",
-    "test:staged": "jest --passWithNoTests --findRelatedTests --silent",
-    "postinstall": "husky install",
-    "test:ci": "jest --coverage --noStackTrace"
+    "test": "jest --silent --colors --noStackTrace --passWithNoTests",
+    "test:unit": "npm test -- --watch",
+    "test:staged": "npm test -- --findRelatedTests",
+    "test:ci": "npm test -- --coverage "
   },
   "standard": {
     "env": ["jest"]
