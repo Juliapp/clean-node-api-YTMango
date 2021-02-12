@@ -13,7 +13,7 @@
     "test": "jest --watch --silent --colors --noStackTrace",
     "test:staged": "jest --passWithNoTests --findRelatedTests --silent",
     "postinstall": "husky install",
-    "test:ci": "jest --coverage"
+    "test:ci": "jest --coverage --noStackTrace"
   },
   "standard": {
     "env": ["jest"]
