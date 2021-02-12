@@ -12,7 +12,8 @@
   "scripts": {
     "test": "jest --watch --silent --colors --noStackTrace",
     "test:staged": "jest --passWithNoTests --findRelatedTests --silent",
-    "postinstall": "husky install"
+    "postinstall": "husky install",
+    "test:ci": "jest --coverage"
   },
   "standard": {
     "env": ["jest"]
