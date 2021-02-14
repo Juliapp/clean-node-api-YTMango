@@ -1,5 +1,12 @@
 # What have I been learned from this project
 
+## Resumo do Clean Architecture:
+
+Domain == Casos de uso
+Data == Implementação dos casos de uso com as regras de negocio
+Infra == Infraestrutura, adaptação dos frameworks
+Presentation == Gerenciamento de estado de variáveis, possibilita reaproveitar código em várias interfaces diferentes (Nem sempre faz sentido existir)
+
 ## Project Setup
 ### standard
 Pacote para linting do código direcionado a JavaScript.
@@ -25,3 +32,6 @@ Começo dos testes personalizados. A aplicação do CA pode ser um pouco grande,
 --silent : Não mostrar detalhes dos testes (--verbose mostra os detalhes mas não mostra os consoles)
 --colors : mostrar cores no prompt
 --noStackTrace
+
+## Auth UseCase
+Algumas classes de erros foram mudadas para o utils/erros
