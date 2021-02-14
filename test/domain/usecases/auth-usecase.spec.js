@@ -17,9 +17,16 @@ class AuthUseCase {
 }
 
 const makeSut = () => {
-  const sut = new AuthUseCase()
+  class LoadUserByEmailRepository {
+    async load (email) {
+      this.email = email
+    }
+  }
+  const loadUserByEmailRepository = new LoadUserByEmailRepository()
+  const sut = new AuthUseCase(loadUserByEmailRepository)
   return {
-    sut
+    sut,
+    loadUserByEmailRepository
   }
 }
 
@@ -37,13 +44,7 @@ describe('Auth UseCase', () => {
   })
 
   test('Showld call loadUserByEmailRepository with correct email', async () => {
-    class LoadUserByEmailRepository {
-      async load (email) {
-        this.email = email
-      }
-    }
-    const loadUserByEmailRepository = new LoadUserByEmailRepository()
-    const sut = new AuthUseCase(loadUserByEmailRepository)
+    const { sut, loadUserByEmailRepository } = makeSut()
     await sut.auth('any_email@mail.com', 'any_password')
     expect(loadUserByEmailRepository.email).toBe('any_email@mail.com')
   })
