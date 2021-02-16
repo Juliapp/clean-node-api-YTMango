@@ -35,3 +35,6 @@ Começo dos testes personalizados. A aplicação do CA pode ser um pouco grande,
 
 ## Auth UseCase
 Algumas classes de erros foram mudadas para o utils/erros
+
+## LoadUserByEmail Repository
+Para casos de teste foi instalada uma biblioteca que emula banco mongodb em memória que está sendo utilizada pelos desenvolvedores hoje em dia (Devido a complexidade de mokar esse banco de dados)
