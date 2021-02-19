@@ -1,7 +1,7 @@
 {
   "name": "clean-node-api-YTMongo",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "src/main/index.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Juliapp/clean-node-api-YTMongo.git"
@@ -10,6 +10,7 @@
   "license": "MIT",
   "description": "Curso gratuito de API em Node com Clean Architecture e TDD",
   "scripts": {
+    "start": "node src/main/index.js",
     "test": "jest --colors --passWithNoTests",
     "test:unit": "npm test -- --watch -c jest-unit-config.js",
     "test:integration": "npm test -- --watch -c jest-integration-config.js",
@@ -36,6 +37,7 @@
     "standard": "^16.0.3"
   },
   "dependencies": {
+    "express": "^4.17.1",
     "mongodb": "^3.6.4",
     "validator": "^13.5.2"
   }
