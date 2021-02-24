@@ -7,10 +7,8 @@ module.exports = class LoginRouter {
   }
 
   async route (httpRequest) {
-    // Validação de request
     try {
       const { email, password } = httpRequest.body
-
       if (!email) {
         return HttpResponse.badRequest(new MissingParamError('email'))
       }
@@ -20,12 +18,10 @@ module.exports = class LoginRouter {
       if (!password) {
         return HttpResponse.badRequest(new MissingParamError('password'))
       }
-
       const accessToken = await this.authUseCase.auth(email, password)
       if (!accessToken) {
         return HttpResponse.unauthorizedError()
       }
-
       return HttpResponse.ok({ accessToken })
     } catch (error) {
       return HttpResponse.serverError()
